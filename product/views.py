@@ -8,6 +8,7 @@ from django.core.paginator import(
     Paginator
 
 )
+from cart.carts import Cart
 
 from .models import(
     Category,
