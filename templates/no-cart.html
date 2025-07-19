@@ -1,0 +1,11 @@
+{% load static %}
+
+<div class="row justify-content-center">
+    <div class="col-md-5"> 
+        <img class="img-fluid rounded mx-auto d-block" src="{% static 'img/cart-empty.png' %}" alt="   ">
+        <div class="d-grid gap-2 text-center">
+            <p>Your cart is currently empty</p>
+            <a class="btn btn-outline-dark text-decoration-none" href="{% url 'product-list' %}">Shop here to make me happy !</a>
+        </div>
+    </div>
+</div>
