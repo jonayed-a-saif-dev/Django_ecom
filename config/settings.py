@@ -127,6 +127,8 @@ STATIC_URL = '/static/'
 STATIC_DIRS = [os.path.join(BASE_DIR,'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #adding by saif 3 lines
 MEDIA_URL = 'media/'
 STATICFILES_DIRS = [BASE_DIR / 'static',]
