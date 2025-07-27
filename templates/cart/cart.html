@@ -52,7 +52,7 @@
                             {% with product=item.product %}
                                 <tr>
                                     <td class="product-col">
-                                        <img src="{{product.thumbnail}}" alt="">
+                                        <img style="height:100px;" src="{{product.thumbnail}}" alt="">
                                         <div class="p-title">
                                             <h5>{{product.title}}</h5>
                                         </div>
@@ -82,7 +82,7 @@
                 <h4 class="text-center">
                     <strong>
                         Total = 
-                    </strong>${{cart.total}}
+                    </strong>${{cart.total | floatformat:"2"}}
                 </h4>
             </div>
             <div class="cart-btn">

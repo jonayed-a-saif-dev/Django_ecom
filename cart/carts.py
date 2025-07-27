@@ -66,3 +66,8 @@ class Cart(object):
             coupon = Coupon.objects.get(id=self.coupon)
             amount-= amount*(coupon.discount/100) 
         return amount
+
+    def restore_after_logout(self,cart={},coupon=None):
+        self.cart = self.session[self.cart_id]=cart
+        self.coupon = self.session[self.coupon_id]=coupon
+        self.save()
