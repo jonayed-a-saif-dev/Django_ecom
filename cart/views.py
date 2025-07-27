@@ -1,7 +1,10 @@
+from datetime import datetime
+from django.views import generic
+from django.utils import timezone
 from django.shortcuts import get_object_or_404,redirect
 from django.contrib import messages
 from .carts import Cart
-from django.views import generic
+from .models import Coupon
 from product.models import Product
 
 
@@ -13,6 +16,7 @@ class AddToCart(generic.View):
         return redirect('cart')
     
 class CartItems(generic.TemplateView):
+
     template_name = 'cart/cart.html'
 
 
@@ -41,3 +45,36 @@ class CartItems(generic.TemplateView):
             return redirect('cart')
         
         return super().get(request,*args, **kwargs)
+    
+
+class AddCoupon(generic.View):
+    def post(self ,*args, **kwargs):
+        code = self.request.POST.get('coupon','')
+        coupon =Coupon.objects.filter(code__iexact = code ,active=True)
+        cart =Cart(self.request)
+
+        if coupon.exists():
+            coupon = coupon.first()
+            current_date =  datetime.date(timezone.now())
+            expiry_date = coupon.expiry_date
+            active_date = coupon.active_date
+            if current_date>expiry_date:
+                messages.warning(self.request,"The Coupon Expired")
+                return redirect('cart')
+            
+            if current_date<active_date:
+                messages.warning(self.request,"The Coupon is yet to be available")
+                return redirect('cart')
+            
+            if cart.total()<coupon.required_amount_to_use_coupon:
+                messages.warning(self.request,f"You have to shop at least ${coupon.required_amount_to_use_coupon} to use this coupon code")
+                return redirect('cart')
+            
+            cart.add_coupon(coupon.id)
+            messages.success(self.request,"Your Coupon has been included successfully !")
+            return redirect('cart')
+
+        else:
+            messages.warning(self.request,"invalid coupon code ! ")
+            return redirect('cart')
+            
