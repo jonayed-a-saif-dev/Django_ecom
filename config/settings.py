@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'product', #adding by saif
     'user_account',#adding by saif
     'cart',
+    'order',
 ]
 
 MIDDLEWARE = [

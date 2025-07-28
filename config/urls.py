@@ -9,6 +9,7 @@ urlpatterns  = [
     path('', include('product.urls')),#adding by saif
     path('', include('user_account.urls')),#adding by saif
     path('', include('cart.urls')),#adding by saif
+    path('', include('order.urls')),#adding by saif
 ]
 
 #adding by saif
